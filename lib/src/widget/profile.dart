@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 import '../tools/gradiant_random_tools.dart';
@@ -255,9 +254,16 @@ class _ProfileState extends State<Profile> {
             children: [
               InkWell(
                 onTap: () async {
+                  final List<XFile> files =
                       await imageModel.pickImage(ImageSource.gallery, false);
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  if (files.isNotEmpty) {
+                    setState(() {
+                      image = File(files.first.path);
+                      widget.onPickerChange?.call(image!);
+                    });
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                  }
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(12.0),
@@ -290,9 +296,16 @@ class _ProfileState extends State<Profile> {
               ),
               InkWell(
                 onTap: () async {
+                  final List<XFile> files =
                       await imageModel.pickImage(ImageSource.camera, false);
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  if (files.isNotEmpty) {
+                    setState(() {
+                      image = File(files.first.path);
+                      widget.onPickerChange?.call(image!);
+                    });
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                  }
                 },
                 child: Material(
                   color: Colors.grey[100],
