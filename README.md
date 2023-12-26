@@ -12,6 +12,10 @@ This is a complete avatar package that you can use for your profile and avatar
 ✔️ Use ImageAssets .
 ✔️ Use ImageNetwork .
 
+![Capture6](https://github.com/SwanFlutter/avatar_better_pro/assets/151648897/ab0394e0-8cb4-4093-861f-c4a8563aff59)
+
+![Capture3](https://github.com/SwanFlutter/avatar_better_pro/assets/151648897/5b229562-fb6d-40fc-a3aa-0655284c3968)
+
 
 
 
