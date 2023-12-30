@@ -74,12 +74,24 @@ randomColor: false,
 ```
 
 ```dart
-Avatar.profile(
-radius: 35,
-text: avatar[index],
-randomGradient: true,
-randomColor: false,
-),                           
+ Avatar.profile(
+              onPickerChange: (file) {
+                setState(() {
+                  image = file;
+                  //  print("image: ${file.path}");
+                });
+              },
+              onPickerChangeWeb: (file) {
+                setState(() {
+                  imageByte = file;
+                });
+              },
+              radius: 70,
+              text: 'Michael',
+              randomGradient: true,
+              randomColor: false,
+            ),
+                          
 ```
 
 
