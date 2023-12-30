@@ -1,3 +1,5 @@
-## 0.0.1
+## 0.0.2
 
-* Create package.
+* update dart sdk.
+* fix bug web platform.
+

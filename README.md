@@ -23,7 +23,7 @@ This is a complete avatar package that you can use for your profile and avatar
 
 ```yaml
 dependencies:
-  avatar_better_pro: ^0.0.1
+  avatar_better_pro: ^0.0.2
 ```
 
 ## How to use

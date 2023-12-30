@@ -2,8 +2,8 @@
 
 import 'dart:io';
 
+import 'package:avatar_better_pro/src/web/isweb.dart';
 import 'package:avatar_better_pro/src/widget/isBorder_avatar.dart';
-import 'package:avatar_better_pro/src/widget/isweb.dart';
 import 'package:avatar_better_pro/src/widget/none_border_avatar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +74,9 @@ class Profile extends StatefulWidget {
   /// This border contains a circular border with a default width of 5 and a color of LinearGradient.
   /// If this parameter is false, no border will be created for the avatar.
 
-  final OnPickerChangeWeb? onPickerChangeWeb;
-
   final bool isBorderAvatar;
+
+  final OnPickerChangeWeb? onPickerChangeWeb;
 
   ///[elevation]: elevation color.
   final double elevation;
@@ -124,7 +124,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   File? image;
   Uint8List? imageBytesWeb;
-  // Uint8List? imageByteAssets;
   ImageTools imageModel = ImageTools();
 
   @override
