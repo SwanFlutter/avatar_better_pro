@@ -1,14 +1,11 @@
-
 import 'package:image_picker/image_picker.dart';
 
 class ImageTools {
   final ImagePicker _imagePicker;
 
-
   ImageTools({
     ImagePicker? imagePicker,
-
-  })  : _imagePicker = imagePicker ?? ImagePicker();
+  }) : _imagePicker = imagePicker ?? ImagePicker();
 
   bool multiple = false;
   Future<List<XFile>> pickImage(ImageSource imageSource, bool multiple) async {
@@ -22,5 +19,4 @@ class ImageTools {
       return [];
     }
   }
-
 }

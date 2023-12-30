@@ -2,15 +2,19 @@
 
 import 'dart:io';
 
+import 'package:avatar_better_pro/src/widget/isBorder_avatar.dart';
+import 'package:avatar_better_pro/src/widget/isweb.dart';
+import 'package:avatar_better_pro/src/widget/none_border_avatar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../tools/gradiant_random_tools.dart';
-import '../tools/gradient_circle_painter.dart';
 import '../tools/image_tools.dart';
 import '../tools/text_to_color.dart';
 
 typedef OnPickerChange = void Function(File file);
+typedef OnPickerChangeWeb = void Function(Uint8List file);
 
 extension ProfileExtensions on Profile {
   static String initials(String text) {
@@ -69,6 +73,9 @@ class Profile extends StatefulWidget {
   /// The isBorderAvatar parameter, if true, creates a border for the avatar.
   /// This border contains a circular border with a default width of 5 and a color of LinearGradient.
   /// If this parameter is false, no border will be created for the avatar.
+
+  final OnPickerChangeWeb? onPickerChangeWeb;
+
   final bool isBorderAvatar;
 
   ///[elevation]: elevation color.
@@ -84,6 +91,7 @@ class Profile extends StatefulWidget {
     this.image,
     this.imageNetwork,
     this.gradientBackgroundColor,
+    this.onPickerChangeWeb,
     this.elevation = 0,
     this.shadowColor = Colors.black,
     this.isBorderAvatar = false,
@@ -115,6 +123,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   File? image;
+  Uint8List? imageBytesWeb;
+  // Uint8List? imageByteAssets;
   ImageTools imageModel = ImageTools();
 
   @override
@@ -122,99 +132,15 @@ class _ProfileState extends State<Profile> {
     return InkResponse(
       child: Stack(
         children: [
-          widget.isBorderAvatar
-              ? CustomPaint(
-                  painter: GradientCirclePainter(
-                    gradientColors: widget.gradientWidthBorder,
-                    withBorder: widget.widthBorder,
-                  ),
-                  child: Material(
-                    type: MaterialType.circle,
-                    elevation: widget.elevation,
-                    shadowColor: widget.shadowColor,
-                    color: Colors.transparent,
-                    borderRadius: null,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: widget.radius != null ? widget.radius! * 2.2 : 35,
-                      width: widget.radius != null ? widget.radius! * 2.2 : 35,
-                      decoration: BoxDecoration(
-                        color: widget.backgroundColor,
-                        gradient: widget.gradientBackgroundColor,
-                        shape: BoxShape.circle,
-                        image: image != null
-                            ? DecorationImage(
-                                image: FileImage(image!),
-                                fit: BoxFit.cover,
-                              )
-                            : widget.imageNetwork != null
-                                ? DecorationImage(
-                                    image: Image.network(widget.imageNetwork!)
-                                        .image,
-                                    fit: BoxFit.cover,
-                                  )
-                                : widget.image != null
-                                    ? DecorationImage(
-                                        image: Image.asset(widget.image!).image,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : null,
-                      ),
-                      child: (image == null &&
-                              widget.imageNetwork == null &&
-                              widget.image == null &&
-                              widget.text != null)
-                          ? Text(
-                              ProfileExtensions.initials(widget.text!),
-                              style: widget.style,
-                            )
-                          : const Text(''),
-                    ),
-                  ),
-                )
-              : Material(
-                  type: MaterialType.circle,
-                  elevation: widget.elevation,
-                  shadowColor: widget.shadowColor,
-                  borderRadius: null,
-                  color: Colors.transparent,
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: widget.radius != null ? widget.radius! * 2.2 : 35,
-                    width: widget.radius != null ? widget.radius! * 2.2 : 35,
-                    decoration: BoxDecoration(
-                      color: widget.backgroundColor,
-                      gradient: widget.gradientBackgroundColor,
-                      shape: BoxShape.circle,
-                      image: image != null
-                          ? DecorationImage(
-                              image: FileImage(image!),
-                              fit: BoxFit.cover,
-                            )
-                          : widget.imageNetwork != null
-                              ? DecorationImage(
-                                  image:
-                                      Image.network(widget.imageNetwork!).image,
-                                  fit: BoxFit.cover,
-                                )
-                              : widget.image != null
-                                  ? DecorationImage(
-                                      image: Image.asset(widget.image!).image,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : null,
-                    ),
-                    child: (image == null &&
-                            widget.imageNetwork == null &&
-                            widget.image == null &&
-                            widget.text != null)
-                        ? Text(
-                            ProfileExtensions.initials(widget.text!),
-                            style: widget.style,
-                          )
-                        : const Text(''),
-                  ),
-                ),
+          if (kIsWeb)
+            IsWeb(
+              widget: widget,
+              imageBytesWeb: imageBytesWeb,
+            )
+          else
+            widget.isBorderAvatar
+                ? IsBorderAvatar(widget: widget, image: image)
+                : NoneBorderAvatar(widget: widget, image: image),
           Positioned(
             bottom: widget.radius != null ? widget.radius! / 11 : 0,
             right: widget.radius != null
@@ -256,13 +182,23 @@ class _ProfileState extends State<Profile> {
                 onTap: () async {
                   final List<XFile> files =
                       await imageModel.pickImage(ImageSource.gallery, false);
-                  if (files.isNotEmpty) {
+                  Uint8List imageBytes = await files.first.readAsBytes();
+
+                  if (kIsWeb) {
                     setState(() {
-                      image = File(files.first.path);
-                      widget.onPickerChange?.call(image!);
+                      imageBytesWeb = imageBytes;
+                      widget.onPickerChangeWeb?.call(imageBytesWeb!);
                     });
-                    // ignore: use_build_context_synchronously
-                    Navigator.pop(context);
+                  } else {
+                    setState(() {
+                      if (files.isNotEmpty) {
+                        image = File(files.first.path);
+                        widget.onPickerChange?.call(image!);
+
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
+                      }
+                    });
                   }
                 },
                 child: Material(
@@ -298,13 +234,22 @@ class _ProfileState extends State<Profile> {
                 onTap: () async {
                   final List<XFile> files =
                       await imageModel.pickImage(ImageSource.camera, false);
-                  if (files.isNotEmpty) {
+                  Uint8List imageBytes = await files.first.readAsBytes();
+                  if (kIsWeb) {
                     setState(() {
-                      image = File(files.first.path);
-                      widget.onPickerChange?.call(image!);
+                      imageBytesWeb = imageBytes;
+                      widget.onPickerChangeWeb?.call(imageBytesWeb!);
                     });
-                    // ignore: use_build_context_synchronously
-                    Navigator.pop(context);
+                  } else {
+                    setState(() {
+                      if (files.isNotEmpty) {
+                        image = File(files.first.path);
+                        widget.onPickerChange?.call(image!);
+
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
+                      }
+                    });
                   }
                 },
                 child: Material(

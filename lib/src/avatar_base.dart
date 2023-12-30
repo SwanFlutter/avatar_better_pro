@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:avatar_better_pro/src/tools/gradiant_random_tools.dart';
 import 'package:flutter/material.dart';
 
-
 import 'tools/text_to_color.dart';
 import 'widget/avatar_circle.dart';
 import 'widget/profile.dart';
@@ -152,6 +151,7 @@ class Avatar {
     /// This border contains a circular border with a default width of 5 and a color of LinearGradient.
     /// If this parameter is false, no border will be created for the avatar.
     final bool isBorderAvatar = false,
+    final OnPickerChangeWeb? onPickerChangeWeb,
   }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text!);
@@ -180,6 +180,7 @@ class Avatar {
       isBorderAvatar: isBorderAvatar,
       shadowColor: shadowColor,
       elevation: elevation,
+      onPickerChangeWeb: onPickerChangeWeb,
     );
   }
 }
