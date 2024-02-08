@@ -1,5 +1,7 @@
 This is a complete avatar package that you can use for your profile and avatar
 
+**Web is Support** 
+
 ## Features
 
 **Features:**  
@@ -23,7 +25,7 @@ This is a complete avatar package that you can use for your profile and avatar
 
 ```yaml
 dependencies:
-  avatar_better_pro: ^0.0.2
+  avatar_better_pro: ^0.0.3
 ```
 
 ## How to use
@@ -48,7 +50,13 @@ import 'package:avatar_better_pro/avatar_better_pro.dart';
 
 
 ### iOS
-- No configuration required
+
+```xml
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to select images for editing.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to take photos for editing.</string>
+```
 
 
 #### macOS installation

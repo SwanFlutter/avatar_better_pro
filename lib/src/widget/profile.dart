@@ -181,23 +181,28 @@ class _ProfileState extends State<Profile> {
                 onTap: () async {
                   final List<XFile> files =
                       await imageModel.pickImage(ImageSource.gallery, false);
-                  Uint8List imageBytes = await files.first.readAsBytes();
 
-                  if (kIsWeb) {
-                    setState(() {
-                      imageBytesWeb = imageBytes;
-                      widget.onPickerChangeWeb?.call(imageBytesWeb!);
-                    });
+                  if (files.isNotEmpty) {
+                    Uint8List imageBytes = await files.first.readAsBytes();
+
+                    if (kIsWeb) {
+                      setState(() {
+                        imageBytesWeb = imageBytes;
+                        widget.onPickerChangeWeb?.call(imageBytesWeb!);
+                      });
+                    } else {
+                      setState(() {
+                        if (files.isNotEmpty) {
+                          image = File(files.first.path);
+                          widget.onPickerChange?.call(image!);
+
+                          // ignore: use_build_context_synchronously
+                          Navigator.pop(context);
+                        }
+                      });
+                    }
                   } else {
-                    setState(() {
-                      if (files.isNotEmpty) {
-                        image = File(files.first.path);
-                        widget.onPickerChange?.call(image!);
-
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context);
-                      }
-                    });
+                    debugPrint('No image was selected.');
                   }
                 },
                 child: Material(
