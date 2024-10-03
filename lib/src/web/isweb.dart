@@ -8,10 +8,10 @@ class IsWeb extends StatelessWidget {
   final Uint8List? imageBytesWeb;
 
   const IsWeb({
-    Key? key,
+    super.key,
     required this.widget,
     required this.imageBytesWeb,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     DecorationImage? decorationImage;
@@ -53,10 +53,7 @@ class IsWeb extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: decorationImage,
                 ),
-                child: (imageBytesWeb == null &&
-                        widget.imageNetwork == null &&
-                        widget.image == null &&
-                        widget.text != null)
+                child: (imageBytesWeb == null && widget.imageNetwork == null && widget.image == null && widget.text != null)
                     ? Text(
                         ProfileExtensions.initials(widget.text!),
                         style: widget.style,
@@ -81,10 +78,7 @@ class IsWeb extends StatelessWidget {
                 shape: BoxShape.circle,
                 image: decorationImage,
               ),
-              child: (imageBytesWeb == null &&
-                      widget.imageNetwork == null &&
-                      widget.image == null &&
-                      widget.text != null)
+              child: (imageBytesWeb == null && widget.imageNetwork == null && widget.image == null && widget.text != null)
                   ? Text(
                       ProfileExtensions.initials(widget.text!),
                       style: widget.style,

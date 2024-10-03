@@ -6,6 +6,5 @@ void main() {
   test('adds one to input values', () {
     final testAvatar = Avatar.circle(text: "Hello World!");
     testAvatar.toString();
-
   });
 }

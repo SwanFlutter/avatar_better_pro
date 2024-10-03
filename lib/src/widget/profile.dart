@@ -84,7 +84,7 @@ class Profile extends StatefulWidget {
   /// [shadowColor]: create shadow widget  (can be null).
   final Color? shadowColor;
   Profile({
-    Key? key,
+    super.key,
     required this.radius,
     required this.text,
     this.onPickerChange,
@@ -96,22 +96,19 @@ class Profile extends StatefulWidget {
     this.shadowColor = Colors.black,
     this.isBorderAvatar = false,
     this.backgroundColor = Colors.green,
-    this.gradientWidthBorder =
-        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+    this.gradientWidthBorder = const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
     this.iconColor = Colors.black,
     this.widthBorder = 5.0,
     this.backgroundColorCamera = Colors.white,
     this.icon = Icons.camera,
-    this.style = const TextStyle(
-        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+    this.style = const TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     bool randomColor = true,
     bool randomGradient = false,
-  }) : super(key: key) {
+  }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text);
     } else if (randomGradient) {
-      gradientBackgroundColor =
-          GradiantRandomTools.getGradient(text.toString());
+      gradientBackgroundColor = GradiantRandomTools.getGradient(text.toString());
     } else {
       backgroundColor = backgroundColor;
     }
@@ -137,14 +134,10 @@ class _ProfileState extends State<Profile> {
               imageBytesWeb: imageBytesWeb,
             )
           else
-            widget.isBorderAvatar
-                ? IsBorderAvatar(widget: widget, image: image)
-                : NoneBorderAvatar(widget: widget, image: image),
+            widget.isBorderAvatar ? IsBorderAvatar(widget: widget, image: image) : NoneBorderAvatar(widget: widget, image: image),
           Positioned(
             bottom: widget.radius != null ? widget.radius! / 11 : 0,
-            right: widget.radius != null
-                ? widget.radius! / 11
-                : 0, // نصف ارتفاع AvatarCircle
+            right: widget.radius != null ? widget.radius! / 11 : 0, // نصف ارتفاع AvatarCircle
             child: InkResponse(
               onTap: () {
                 customBottomPickerImage();
@@ -179,8 +172,7 @@ class _ProfileState extends State<Profile> {
             children: [
               InkWell(
                 onTap: () async {
-                  final List<XFile> files =
-                      await imageModel.pickImage(ImageSource.gallery, false);
+                  final List<XFile> files = await imageModel.pickImage(ImageSource.gallery, false);
 
                   if (files.isNotEmpty) {
                     Uint8List imageBytes = await files.first.readAsBytes();
@@ -236,8 +228,7 @@ class _ProfileState extends State<Profile> {
               ),
               InkWell(
                 onTap: () async {
-                  final List<XFile> files =
-                      await imageModel.pickImage(ImageSource.camera, false);
+                  final List<XFile> files = await imageModel.pickImage(ImageSource.camera, false);
                   Uint8List imageBytes = await files.first.readAsBytes();
                   if (kIsWeb) {
                     setState(() {

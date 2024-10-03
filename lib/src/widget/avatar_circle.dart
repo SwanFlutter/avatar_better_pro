@@ -41,7 +41,7 @@ class Circle extends StatelessWidget {
   final bool isBorderAvatar;
 
   Circle({
-    Key? key,
+    super.key,
     required this.text,
     this.onTapAvatar,
     this.radius = 35,
@@ -50,21 +50,18 @@ class Circle extends StatelessWidget {
     this.backgroundColor,
     this.gradientBackgroundColor,
     this.shadowColor = Colors.black,
-    this.gradientWidthBorder =
-        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+    this.gradientWidthBorder = const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
     this.elevation = 0,
     this.widthBorder = 5.0,
     this.isBorderAvatar = false,
-    this.style = const TextStyle(
-        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+    this.style = const TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     bool randomColor = true,
     bool randomGradient = false,
-  }) : super(key: key) {
+  }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text);
     } else if (randomGradient) {
-      gradientBackgroundColor =
-          GradiantRandomTools.getGradient(text.toString());
+      gradientBackgroundColor = GradiantRandomTools.getGradient(text.toString());
     } else {
       backgroundColor = backgroundColor;
     }
@@ -114,10 +111,7 @@ class Circle extends StatelessWidget {
                                 : null,
                   ),
                   // ignore: unnecessary_null_comparison
-                  child: (imagePicker == null &&
-                          imageNetwork == null &&
-                          image == null &&
-                          text != null)
+                  child: (imagePicker == null && imageNetwork == null && image == null && text != null)
                       ? Text(
                           AvatarCircleExtensions.initials(text!),
                           style: style,
@@ -159,10 +153,7 @@ class Circle extends StatelessWidget {
                               : null,
                 ),
                 // ignore: unnecessary_null_comparison
-                child: (imagePicker == null &&
-                        imageNetwork == null &&
-                        image == null &&
-                        text != null)
+                child: (imagePicker == null && imageNetwork == null && image == null && text != null)
                     ? Text(
                         AvatarCircleExtensions.initials(text!),
                         style: style,

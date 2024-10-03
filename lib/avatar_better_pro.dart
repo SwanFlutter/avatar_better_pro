@@ -1,3 +1,3 @@
-library avatar_better_pro;
+library;
 
 export 'src/avatar_base.dart';
