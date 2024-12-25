@@ -14,7 +14,6 @@ This is a complete avatar package that you can use for your profile and avatar
 ✔️ Use ImageAssets .
 ✔️ Use ImageNetwork .
 
-![opacity1](https://github.com/user-attachments/assets/d9aba25d-0de4-432f-a066-3407d235cffe)
 ![avatar6](https://github.com/user-attachments/assets/8e176a21-6ec7-47f1-bdd6-ab417851d7cd)
 ![avatar5](https://github.com/user-attachments/assets/d226ecba-fd44-4d3f-8f7b-86a8b8bcc94a)
 
