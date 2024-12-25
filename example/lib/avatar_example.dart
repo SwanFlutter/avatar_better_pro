@@ -98,6 +98,7 @@ class _AvatarExampleState extends State<AvatarExample> {
                         randomGradient: true,
                         randomColor: false,
                         useMaterialColorForGradient: true,
+                        mixColorForGradient: false,
                         bottomSheetStyles: BottomSheetStyles(
                           galleryButton: GalleryBottom(
                               style: const TextStyle(),
