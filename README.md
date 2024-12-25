@@ -100,6 +100,9 @@ mixColorForGradient: false,
 ),,
 ```
 
+![avatar7](https://github.com/user-attachments/assets/1dd789e9-979b-4f06-ac3c-a469507d9919)
+
+
 ```dart
  Avatar.profile(
               onPickerChange: (file) {
@@ -131,6 +134,8 @@ mixColorForGradient: false,
             
                           
 ```
+
+
 
 
 
