@@ -18,7 +18,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^1.0.5
+  image_picker: ^1.1.2
+  image_picker_platform_interface: ^2.10.0
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

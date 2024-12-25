@@ -68,8 +68,7 @@ class _AvatarExampleState extends State<AvatarExample> {
     'Z'
   ];
 
-  List<String> avatar =
-      List.generate(52, (index) => "${alphabet[index]} avatar ${index + 1} ");
+  List<String> avatar = List.generate(52, (index) => "${alphabet[index]} avatar ${index + 1} ");
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -91,8 +90,8 @@ class _AvatarExampleState extends State<AvatarExample> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Avatar.circle(
-                        onTapAvatar: () {},
+                      Avatar.profile(
+                        // onTapAvatar: () {},
                         radius: 35,
                         text: avatar[index],
                         randomGradient: true,

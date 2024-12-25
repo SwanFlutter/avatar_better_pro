@@ -1,5 +1,5 @@
+import 'package:avatar_better_pro/src/profile.dart';
 import 'package:avatar_better_pro/src/tools/gradient_circle_painter.dart';
-import 'package:avatar_better_pro/src/widget/profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

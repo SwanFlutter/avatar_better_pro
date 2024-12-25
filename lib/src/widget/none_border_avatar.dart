@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'profile.dart';
+import '../profile.dart';
 
 class NoneBorderAvatar extends StatelessWidget {
   const NoneBorderAvatar({
@@ -11,7 +11,10 @@ class NoneBorderAvatar extends StatelessWidget {
     required this.image,
   });
 
+  /// [widget]: The widget for the profile.
   final Profile widget;
+
+  /// [image]: The image for the profile.
   final File? image;
 
   @override
@@ -47,10 +50,7 @@ class NoneBorderAvatar extends StatelessWidget {
                         )
                       : null,
         ),
-        child: (image == null &&
-                widget.imageNetwork == null &&
-                widget.image == null &&
-                widget.text != null)
+        child: (image == null && widget.imageNetwork == null && widget.image == null && widget.text != null)
             ? Text(
                 ProfileExtensions.initials(widget.text!),
                 style: widget.style,

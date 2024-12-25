@@ -1,8 +1,11 @@
+// ignore_for_file: file_names
+
 import 'dart:io';
 
 import 'package:avatar_better_pro/src/tools/gradient_circle_painter.dart';
-import 'package:avatar_better_pro/src/widget/profile.dart';
 import 'package:flutter/material.dart';
+
+import '../profile.dart';
 
 class IsBorderAvatar extends StatelessWidget {
   const IsBorderAvatar({
@@ -11,7 +14,10 @@ class IsBorderAvatar extends StatelessWidget {
     required this.image,
   });
 
+  /// [widget]: The widget for the profile.
   final Profile widget;
+
+  /// [image]: The image for the profile.
   final File? image;
 
   @override
@@ -52,10 +58,7 @@ class IsBorderAvatar extends StatelessWidget {
                           )
                         : null,
           ),
-          child: (image == null &&
-                  widget.imageNetwork == null &&
-                  widget.image == null &&
-                  widget.text != null)
+          child: (image == null && widget.imageNetwork == null && widget.image == null && widget.text != null)
               ? Text(
                   ProfileExtensions.initials(widget.text!),
                   style: widget.style,
