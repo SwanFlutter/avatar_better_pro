@@ -12,6 +12,9 @@ import 'src/tools/bottom_sheet_styles.dart';
 import 'src/tools/gradiant_random_tools.dart';
 import 'src/tools/text_to_color.dart';
 
+export 'package:avatar_better_pro/src/tools/bottom_sheet_styles.dart';
+export 'package:avatar_better_pro/src/tools/gallery_buttom.dart';
+
 typedef OnPickerChange = void Function(File file);
 
 extension AvatarCircleExtensions on Avatar {
@@ -120,20 +123,23 @@ class Avatar extends StatefulWidget {
     this.backgroundColor,
     this.gradientBackgroundColor,
     this.shadowColor = Colors.black,
-    this.gradientWidthBorder = const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+    this.gradientWidthBorder =
+        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
     this.elevation = 0,
     this.widthBorder = 5.0,
     this.isBorderAvatar = false,
     this.useMaterialColorForGradient = true,
     this.mixColorForGradient = false,
-    this.style = const TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+    this.style = const TextStyle(
+        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     bool randomColor = true,
     bool randomGradient = false,
   }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text);
     } else if (randomGradient) {
-      gradientBackgroundColor = GradientRandomTools.getGradient(text.toString(), material: true);
+      gradientBackgroundColor =
+          GradientRandomTools.getGradient(text.toString(), material: true);
     } else {
       backgroundColor = backgroundColor;
     }
@@ -162,10 +168,12 @@ class Avatar extends StatefulWidget {
     Gradient? gradientBackgroundColor,
 
     /// [gradientWidthBorder]: The gradient for the profile's border (default: linear gradient from blue to deep purple).
-    Gradient? gradientWidthBorder = const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+    Gradient? gradientWidthBorder =
+        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
 
     /// [style]: The text style (default: font size 25, white color, and bold).
-    final TextStyle? style = const TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+    final TextStyle? style = const TextStyle(
+        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
 
     /// [backgroundColorCamera] : color background picker
     final Color backgroundColorCamera = Colors.white,
@@ -218,7 +226,9 @@ class Avatar extends StatefulWidget {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text!);
     } else if (randomGradient) {
-      gradientBackgroundColor = GradientRandomTools.getGradient(text.toString(), material: useMaterialColorForGradient, dynamicMix: mixColorForGradient);
+      gradientBackgroundColor = GradientRandomTools.getGradient(text.toString(),
+          material: useMaterialColorForGradient,
+          dynamicMix: mixColorForGradient);
     } else {
       backgroundColor = backgroundColor;
     }
@@ -287,9 +297,13 @@ class _AvatarState extends State<Avatar> {
                             image: FileImage(imagePicker),
                             fit: BoxFit.cover,
                           )
-                        : widget.imageNetwork != null || widget.listImageNetwork != null
+                        : widget.imageNetwork != null ||
+                                widget.listImageNetwork != null
                             ? DecorationImage(
-                                image: Image.network(widget.imageNetwork != null ? widget.imageNetwork! : widget.listImageNetwork!.last).image,
+                                image: Image.network(widget.imageNetwork != null
+                                        ? widget.imageNetwork!
+                                        : widget.listImageNetwork!.last)
+                                    .image,
                                 fit: BoxFit.cover,
                               )
                             : widget.image != null
@@ -300,7 +314,11 @@ class _AvatarState extends State<Avatar> {
                                 : null,
                   ),
                   // ignore: unnecessary_null_comparison
-                  child: (imagePicker == null && widget.imageNetwork == null && widget.image == null && widget.listImageNetwork == null && widget.text != null)
+                  child: (imagePicker == null &&
+                          widget.imageNetwork == null &&
+                          widget.image == null &&
+                          widget.listImageNetwork == null &&
+                          widget.text != null)
                       ? Text(
                           AvatarCircleExtensions.initials(widget.text!),
                           style: widget.style,
@@ -329,9 +347,13 @@ class _AvatarState extends State<Avatar> {
                           image: FileImage(imagePicker),
                           fit: BoxFit.cover,
                         )
-                      : widget.imageNetwork != null || widget.listImageNetwork != null
+                      : widget.imageNetwork != null ||
+                              widget.listImageNetwork != null
                           ? DecorationImage(
-                              image: Image.network(widget.imageNetwork != null ? widget.imageNetwork! : widget.listImageNetwork!.last).image,
+                              image: Image.network(widget.imageNetwork != null
+                                      ? widget.imageNetwork!
+                                      : widget.listImageNetwork!.last)
+                                  .image,
                               fit: BoxFit.cover,
                             )
                           : widget.image != null
@@ -342,7 +364,11 @@ class _AvatarState extends State<Avatar> {
                               : null,
                 ),
                 // ignore: unnecessary_null_comparison
-                child: (imagePicker == null && widget.imageNetwork == null && widget.image == null && widget.listImageNetwork == null && widget.text != null)
+                child: (imagePicker == null &&
+                        widget.imageNetwork == null &&
+                        widget.image == null &&
+                        widget.listImageNetwork == null &&
+                        widget.text != null)
                     ? Text(
                         AvatarCircleExtensions.initials(widget.text!),
                         style: widget.style,

@@ -133,7 +133,8 @@ class GradientRandomTools {
       stops = [0.0, 0.5, 1.0];
     } else {
       // Use predefined gradients
-      colors = _predefinedGradients[random.nextInt(_predefinedGradients.length)];
+      colors =
+          _predefinedGradients[random.nextInt(_predefinedGradients.length)];
       stops = List.generate(
         colors.length,
         (index) => index / (colors.length - 1),

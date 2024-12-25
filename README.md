@@ -50,6 +50,20 @@ import 'package:avatar_better_pro/avatar_better_pro.dart';
 
 ```
 
+- Add this line code to application AndroidManifest.xml
+
+```xml
+android:requestLegacyExternalStorage="true"
+```
+
+```xml
+<application
+        android:label="avaterbetter"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
+```
+
 
 ### iOS
 
@@ -74,12 +88,15 @@ add a filesystem access
 ## example
 
 ```dart
- Avatar.circle(
+ Avatar(
 onTapAvatar: () {},
 radius: 35,
 text: avatar[index],
 randomGradient: true,
 randomColor: false,
+useMaterialColorForGradient: true,
+mixColorForGradient: false,
+
 ),,
 ```
 
@@ -96,11 +113,22 @@ randomColor: false,
                   imageByte = file;
                 });
               },
-              radius: 70,
-              text: 'Michael',
-              randomGradient: true,
-              randomColor: false,
-            ),
+              radius: 35,
+                  text: avatar[index],
+                  randomGradient: true,
+                   randomColor: false,
+                    useMaterialColorForGradient: true,
+                     mixColorForGradient: false,
+                      bottomSheetStyles: BottomSheetStyles(
+                       galleryButton: GalleryBottom(style: const TextStyle(), color: Colors.amber, text: 'Gallery', icon: const Icon(Icons.image_outlined)),
+                    cameraButton: CameraButton(style: const TextStyle(), color: Colors.amber, text: 'Camera', icon: const Icon(Icons.camera_alt_outlined)),
+                  backgroundColor: Colors.amberAccent,
+               elevation: 2,
+            middleText: 'OR',
+         middleTextStyle: const TextStyle(),
+      ),
+  ),
+            
                           
 ```
 

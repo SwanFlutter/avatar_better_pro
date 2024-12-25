@@ -68,7 +68,8 @@ class _AvatarExampleState extends State<AvatarExample> {
     'Z'
   ];
 
-  List<String> avatar = List.generate(52, (index) => "${alphabet[index]} avatar ${index + 1} ");
+  List<String> avatar =
+      List.generate(52, (index) => "${alphabet[index]} avatar ${index + 1} ");
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -96,6 +97,23 @@ class _AvatarExampleState extends State<AvatarExample> {
                         text: avatar[index],
                         randomGradient: true,
                         randomColor: false,
+                        useMaterialColorForGradient: true,
+                        bottomSheetStyles: BottomSheetStyles(
+                          galleryButton: GalleryBottom(
+                              style: const TextStyle(),
+                              color: Colors.amber,
+                              text: 'Gallery',
+                              icon: const Icon(Icons.image_outlined)),
+                          cameraButton: CameraButton(
+                              style: const TextStyle(),
+                              color: Colors.amber,
+                              text: 'Camera',
+                              icon: const Icon(Icons.camera_alt_outlined)),
+                          backgroundColor: Colors.amberAccent,
+                          elevation: 2,
+                          middleText: 'OR',
+                          middleTextStyle: const TextStyle(),
+                        ),
                       ),
                       Text(avatar[index]),
                     ],
