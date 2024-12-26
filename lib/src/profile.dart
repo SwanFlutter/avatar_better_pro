@@ -105,6 +105,8 @@ class Profile extends StatefulWidget {
   /// [mixColorForGradient] : mix color for gradient
   final bool mixColorForGradient;
 
+  final Widget? child;
+
   Profile({
     super.key,
     required this.radius,
@@ -127,6 +129,7 @@ class Profile extends StatefulWidget {
     this.icon = Icons.camera,
     this.useMaterialColorForGradient = true,
     this.mixColorForGradient = false,
+    this.child,
     this.style = const TextStyle(
         fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     bool randomColor = true,

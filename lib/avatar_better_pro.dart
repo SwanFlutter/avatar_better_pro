@@ -112,6 +112,8 @@ class Avatar extends StatefulWidget {
   /// [mixColorForGradient] : mix color for gradient. Default = false
   final bool mixColorForGradient;
 
+  final Widget? child;
+
   Avatar({
     super.key,
     required this.text,
@@ -130,6 +132,7 @@ class Avatar extends StatefulWidget {
     this.isBorderAvatar = false,
     this.useMaterialColorForGradient = true,
     this.mixColorForGradient = false,
+    this.child,
     this.style = const TextStyle(
         fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
     bool randomColor = true,
@@ -145,84 +148,87 @@ class Avatar extends StatefulWidget {
     }
   }
 
-  static Widget profile({
-    /// [text]: The text to display on the profile.
-    required String? text,
+  static Widget profile(
+      {
+      /// [text]: The text to display on the profile.
+      required String? text,
 
-    /// [widthBorder]: The border width of the profile [widthBorder = 0.0].
-    final double widthBorder = 0.0,
+      /// [widthBorder]: The border width of the profile [widthBorder = 0.0].
+      final double widthBorder = 0.0,
 
-    /// [radius]: The radius of the profile [radius = 35].
-    double? radius = 35,
+      /// [radius]: The radius of the profile [radius = 35].
+      double? radius = 35,
 
-    /// [image]: The imageAssets for the profile.
-    final String? image,
+      /// [image]: The imageAssets for the profile.
+      final String? image,
 
-    /// [imageNetwork]: The image URL for the profile.
-    final String? imageNetwork,
+      /// [imageNetwork]: The image URL for the profile.
+      final String? imageNetwork,
 
-    /// [backgroundColor]: The background color of the profile (can be null).
-    Color? backgroundColor,
+      /// [backgroundColor]: The background color of the profile (can be null).
+      Color? backgroundColor,
 
-    /// [gradientBackgroundColor]: The gradient background of the profile (can be null).
-    Gradient? gradientBackgroundColor,
+      /// [gradientBackgroundColor]: The gradient background of the profile (can be null).
+      Gradient? gradientBackgroundColor,
 
-    /// [gradientWidthBorder]: The gradient for the profile's border (default: linear gradient from blue to deep purple).
-    Gradient? gradientWidthBorder =
-        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+      /// [gradientWidthBorder]: The gradient for the profile's border (default: linear gradient from blue to deep purple).
+      Gradient? gradientWidthBorder =
+          const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
 
-    /// [style]: The text style (default: font size 25, white color, and bold).
-    final TextStyle? style = const TextStyle(
-        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+      /// [style]: The text style (default: font size 25, white color, and bold).
+      final TextStyle? style = const TextStyle(
+          fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
 
-    /// [backgroundColorCamera] : color background picker
-    final Color backgroundColorCamera = Colors.white,
+      /// [backgroundColorCamera] : color background picker
+      final Color backgroundColorCamera = Colors.white,
 
-    /// [icon]: icon picker
-    final IconData? icon = Icons.camera,
+      /// [icon]: icon picker
+      final IconData? icon = Icons.camera,
 
-    /// [iconColor]: color picker icon
-    final Color iconColor = Colors.black,
+      /// [iconColor]: color picker icon
+      final Color iconColor = Colors.black,
 
-    /// [randomColor]: A boolean flag for randomizing the background color of the profile.
-    bool randomColor = true,
+      /// [randomColor]: A boolean flag for randomizing the background color of the profile.
+      bool randomColor = true,
 
-    /// [randomGradient]: A boolean flag for randomizing the background gradient of the profile.
-    bool randomGradient = false,
+      /// [randomGradient]: A boolean flag for randomizing the background gradient of the profile.
+      bool randomGradient = false,
 
-    ///[elevation]: elevation color.
-    final double elevation = 0,
+      ///[elevation]: elevation color.
+      final double elevation = 0,
 
-    /// [shadowColor]: create shadow widget  (can be null).
-    final Color shadowColor = Colors.black,
+      /// [shadowColor]: create shadow widget  (can be null).
+      final Color shadowColor = Colors.black,
 
-    ///[onPickerChange ]:is an optional property in the [Picker] class that allows you to call a callback when the picker value changes.
-    /// This callback has a parameter named value that passes the new value of the picker to it.
-    final OnPickerChange? onPickerChange,
+      ///[onPickerChange ]:is an optional property in the [Picker] class that allows you to call a callback when the picker value changes.
+      /// This callback has a parameter named value that passes the new value of the picker to it.
+      final OnPickerChange? onPickerChange,
 
-    /// The [isBorderAvatar] parameter, if true, creates a border for the avatar.
-    /// This border contains a circular border with a default width of 5 and a color of LinearGradient.
-    /// If this parameter is false, no border will be created for the avatar.
-    final bool isBorderAvatar = false,
+      /// The [isBorderAvatar] parameter, if true, creates a border for the avatar.
+      /// This border contains a circular border with a default width of 5 and a color of LinearGradient.
+      /// If this parameter is false, no border will be created for the avatar.
+      final bool isBorderAvatar = false,
 
-    /// This section of code pertains to the definition of a callback that is invoked when a file is selected by the user.
-    ///
-    /// `OnPickerChangeWeb` is a data type representing a function that takes an argument of type `Uint8List` and returns nothing (`void`).
-    ///
-    /// This callback is used as a parameter in a function or class responsible for file selection or change. When a user selects a file and the selection process completes, this callback is invoked, and the selected file is passed to it as an argument.
-    ///
-    /// The default value for this parameter is `null`, but you can specify a function as a default value to be called if no function is selected.
-    final OnPickerChangeWeb? onPickerChangeWeb,
+      /// This section of code pertains to the definition of a callback that is invoked when a file is selected by the user.
+      ///
+      /// `OnPickerChangeWeb` is a data type representing a function that takes an argument of type `Uint8List` and returns nothing (`void`).
+      ///
+      /// This callback is used as a parameter in a function or class responsible for file selection or change. When a user selects a file and the selection process completes, this callback is invoked, and the selected file is passed to it as an argument.
+      ///
+      /// The default value for this parameter is `null`, but you can specify a function as a default value to be called if no function is selected.
+      final OnPickerChangeWeb? onPickerChangeWeb,
 
-    /// [BottomSheetStyles] : Configuration for customizing the bottom sheet's appearance and behavior.
-    final BottomSheetStyles? bottomSheetStyles,
+      /// [BottomSheetStyles] : Configuration for customizing the bottom sheet's appearance and behavior.
+      final BottomSheetStyles? bottomSheetStyles,
 
-    /// [useMaterialColorForGradient] : use material color for gradient
-    final bool useMaterialColorForGradient = true,
+      /// [useMaterialColorForGradient] : use material color for gradient
+      final bool useMaterialColorForGradient = true,
 
-    /// [mixColorForGradient] : mix color for gradient
-    final bool mixColorForGradient = false,
-  }) {
+      /// [mixColorForGradient] : mix color for gradient
+      final bool mixColorForGradient = false,
+
+      /// [child] : child widget
+      final Widget? child}) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text!);
     } else if (randomGradient) {
@@ -255,6 +261,7 @@ class Avatar extends StatefulWidget {
       bottomSheetStyles: bottomSheetStyles,
       useMaterialColorForGradient: useMaterialColorForGradient,
       mixColorForGradient: mixColorForGradient,
+      child: child,
     );
   }
 
@@ -369,10 +376,11 @@ class _AvatarState extends State<Avatar> {
                         widget.image == null &&
                         widget.listImageNetwork == null &&
                         widget.text != null)
-                    ? Text(
-                        AvatarCircleExtensions.initials(widget.text!),
-                        style: widget.style,
-                      )
+                    ? widget.child ??
+                        Text(
+                          AvatarCircleExtensions.initials(widget.text!),
+                          style: widget.style,
+                        )
                     : const Text(''),
               ),
             ),

@@ -91,7 +91,7 @@ class _AvatarExampleState extends State<AvatarExample> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Avatar.profile(
+                      Avatar(
                         // onTapAvatar: () {},
                         radius: 35,
                         text: avatar[index],
@@ -99,7 +99,9 @@ class _AvatarExampleState extends State<AvatarExample> {
                         randomColor: false,
                         useMaterialColorForGradient: true,
                         mixColorForGradient: false,
-                        bottomSheetStyles: BottomSheetStyles(
+                        // onTapAvatar: () {},
+                        child: const Icon(Icons.person),
+                        /*   bottomSheetStyles: BottomSheetStyles(
                           galleryButton: GalleryBottom(
                               style: const TextStyle(),
                               color: Colors.amber,
@@ -114,7 +116,7 @@ class _AvatarExampleState extends State<AvatarExample> {
                           elevation: 2,
                           middleText: 'OR',
                           middleTextStyle: const TextStyle(),
-                        ),
+                        ),*/
                       ),
                       Text(avatar[index]),
                     ],
