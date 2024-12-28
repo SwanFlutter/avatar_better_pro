@@ -3,8 +3,10 @@
 library;
 
 import 'dart:io';
+import 'dart:math' show pi, cos, sin;
 
 import 'package:avatar_better_pro/src/tools/gradient_circle_painter.dart';
+import 'package:avatar_better_pro/src/tools/status_indicator_settings.dart';
 import 'package:flutter/material.dart';
 
 import 'src/profile.dart';
@@ -14,6 +16,7 @@ import 'src/tools/text_to_color.dart';
 
 export 'package:avatar_better_pro/src/tools/bottom_sheet_styles.dart';
 export 'package:avatar_better_pro/src/tools/gallery_buttom.dart';
+export 'package:avatar_better_pro/src/tools/status_indicator_settings.dart';
 
 typedef OnPickerChange = void Function(File file);
 
@@ -112,6 +115,13 @@ class Avatar extends StatefulWidget {
   /// [mixColorForGradient] : mix color for gradient. Default = false
   final bool mixColorForGradient;
 
+  /// [showStatusSettings] : show status settings. Default = false
+  final bool showStatusSettings;
+
+  /// [statusSettings]: The status indicator settings for the avatar.
+  final StatusIndicatorSettings? statusSettings;
+
+  /// [child]: The child widget to display inside the avatar.
   final Widget? child;
 
   Avatar({
@@ -128,10 +138,12 @@ class Avatar extends StatefulWidget {
     this.gradientWidthBorder =
         const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
     this.elevation = 0,
-    this.widthBorder = 5.0,
+    this.widthBorder = 0.0,
     this.isBorderAvatar = false,
     this.useMaterialColorForGradient = true,
     this.mixColorForGradient = false,
+    this.showStatusSettings = false,
+    this.statusSettings,
     this.child,
     this.style = const TextStyle(
         fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
@@ -276,114 +288,186 @@ class _AvatarState extends State<Avatar> {
   @override
   Widget build(BuildContext context) {
     File? imagePicker;
-    return InkResponse(
-      onTap: widget.onTapAvatar,
-      child: widget.isBorderAvatar
-          ? CustomPaint(
-              painter: GradientCirclePainter(
-                gradientColors: widget.gradientWidthBorder,
-                withBorder: widget.widthBorder,
-              ),
-              child: Material(
-                type: MaterialType.circle,
-                elevation: widget.elevation,
-                shadowColor: widget.shadowColor,
-                color: Colors.transparent,
-                borderRadius: null,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: widget.radius != null ? widget.radius! * 2.2 : 35,
-                  width: widget.radius != null ? widget.radius! * 2.2 : 35,
-                  decoration: BoxDecoration(
-                    color: widget.backgroundColor,
-                    gradient: widget.gradientBackgroundColor,
-                    shape: BoxShape.circle,
-                    // ignore: unnecessary_null_comparison
-                    image: imagePicker != null
-                        ? DecorationImage(
-                            image: FileImage(imagePicker),
-                            fit: BoxFit.cover,
-                          )
-                        : widget.imageNetwork != null ||
-                                widget.listImageNetwork != null
-                            ? DecorationImage(
-                                image: Image.network(widget.imageNetwork != null
-                                        ? widget.imageNetwork!
-                                        : widget.listImageNetwork!.last)
-                                    .image,
-                                fit: BoxFit.cover,
-                              )
-                            : widget.image != null
-                                ? DecorationImage(
-                                    image: Image.asset(widget.image!).image,
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
-                  ),
-                  // ignore: unnecessary_null_comparison
-                  child: (imagePicker == null &&
-                          widget.imageNetwork == null &&
-                          widget.image == null &&
-                          widget.listImageNetwork == null &&
-                          widget.text != null)
-                      ? Text(
-                          AvatarCircleExtensions.initials(widget.text!),
-                          style: widget.style,
-                        )
-                      : const Text(''),
-                ),
-              ),
-            )
-          : Material(
-              type: MaterialType.circle,
-              elevation: widget.elevation,
-              shadowColor: widget.shadowColor,
-              color: Colors.transparent,
-              borderRadius: null,
-              child: Container(
-                alignment: Alignment.center,
-                height: widget.radius != null ? widget.radius! * 2.2 : 35,
-                width: widget.radius != null ? widget.radius! * 2.2 : 35,
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor,
-                  gradient: widget.gradientBackgroundColor,
-                  shape: BoxShape.circle,
-                  // ignore: unnecessary_null_comparison
-                  image: imagePicker != null
-                      ? DecorationImage(
-                          image: FileImage(imagePicker),
-                          fit: BoxFit.cover,
-                        )
-                      : widget.imageNetwork != null ||
-                              widget.listImageNetwork != null
-                          ? DecorationImage(
-                              image: Image.network(widget.imageNetwork != null
-                                      ? widget.imageNetwork!
-                                      : widget.listImageNetwork!.last)
-                                  .image,
-                              fit: BoxFit.cover,
-                            )
-                          : widget.image != null
-                              ? DecorationImage(
-                                  image: Image.asset(widget.image!).image,
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                ),
-                // ignore: unnecessary_null_comparison
-                child: (imagePicker == null &&
-                        widget.imageNetwork == null &&
-                        widget.image == null &&
-                        widget.listImageNetwork == null &&
-                        widget.text != null)
-                    ? widget.child ??
-                        Text(
-                          AvatarCircleExtensions.initials(widget.text!),
-                          style: widget.style,
-                        )
-                    : const Text(''),
-              ),
-            ),
+    final double avatarSize = widget.radius != null ? widget.radius! * 2.2 : 35;
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        InkResponse(
+          onTap: widget.onTapAvatar,
+          child: widget.isBorderAvatar
+              ? _buildBorderedAvatar(imagePicker)
+              : _buildSimpleAvatar(imagePicker),
+        ),
+        if (widget.showStatusSettings &&
+            widget.statusSettings != null) // بررسی پراپرتی جدید
+          _buildEdgeStatusIndicator(avatarSize),
+      ],
     );
+  }
+
+  Widget _buildEdgeStatusIndicator(double avatarSize) {
+    final settings = widget.statusSettings!;
+    final borderOffset = widget.isBorderAvatar ? widget.widthBorder : 0;
+    final avatarRadius = avatarSize / 2;
+    final indicatorRadius = settings.size / 2;
+
+    // زاویه موقعیت‌یابی دایره وضعیت
+    double angle;
+    switch (settings.alignment) {
+      case StatusIndicatorAlignment.topRight:
+        angle = -45 * pi / 180; // -45 درجه
+        break;
+      case StatusIndicatorAlignment.bottomRight:
+        angle = 45 * pi / 180; // 45 درجه
+        break;
+      case StatusIndicatorAlignment.bottomLeft:
+        angle = 135 * pi / 180; // 135 درجه
+        break;
+      case StatusIndicatorAlignment.topLeft:
+        angle = 225 * pi / 180; // 225 درجه
+        break;
+    }
+
+    // محاسبه مختصات با تنظیم برای کمی داخل‌تر رفتن دایره وضعیت
+    final x =
+        avatarRadius + (avatarRadius + indicatorRadius * 0.30) * cos(angle);
+    final y =
+        avatarRadius + (avatarRadius + indicatorRadius * 0.30) * sin(angle);
+
+    return Positioned(
+      left: x - indicatorRadius + borderOffset - 1.8,
+      top: y - indicatorRadius + borderOffset - 1.8,
+      child: SizedBox(
+        width: settings.size,
+        height: settings.size,
+        child: _getStatusIndicator(),
+      ),
+    );
+  }
+
+  Widget _getStatusIndicator() {
+    final settings = widget.statusSettings;
+    if (settings == null) return const SizedBox.shrink();
+
+    final color = settings.currentColor;
+
+    switch (settings.style) {
+      case StatusIndicatorStyle.dot:
+        return Container(
+          width: settings.size,
+          height: settings.size,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            border: settings.border,
+            boxShadow: settings.shadow,
+          ),
+        );
+
+      case StatusIndicatorStyle.ring:
+        return Container(
+          width: settings.size,
+          height: settings.size,
+          decoration: BoxDecoration(
+            color: settings.borderColor,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: color,
+              width: settings.borderWidth,
+            ),
+            boxShadow: settings.shadow,
+          ),
+        );
+
+      case StatusIndicatorStyle.semicircle:
+        return Container(
+          width: settings.size,
+          height: settings.size / 2,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(settings.size / 2),
+            border: settings.border,
+            boxShadow: settings.shadow,
+          ),
+        );
+    }
+  }
+
+  Widget _buildBorderedAvatar(File? imagePicker) {
+    return CustomPaint(
+      painter: GradientCirclePainter(
+        gradientColors: widget.gradientWidthBorder,
+        withBorder: widget.widthBorder,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(widget.widthBorder),
+        child: _buildAvatarContent(imagePicker),
+      ),
+    );
+  }
+
+  Widget _buildSimpleAvatar(File? imagePicker) {
+    return _buildAvatarContent(imagePicker);
+  }
+
+  Widget _buildAvatarContent(File? imagePicker) {
+    final double avatarSize = widget.radius != null ? widget.radius! * 2.2 : 35;
+
+    return Material(
+      type: MaterialType.circle,
+      elevation: widget.elevation,
+      shadowColor: widget.shadowColor,
+      color: Colors.transparent,
+      child: Container(
+        width: avatarSize,
+        height: avatarSize,
+        decoration: BoxDecoration(
+          color: widget.backgroundColor,
+          gradient: widget.gradientBackgroundColor,
+          shape: BoxShape.circle,
+          image: _getDecorationImage(imagePicker),
+        ),
+        child: _buildAvatarChild(imagePicker),
+      ),
+    );
+  }
+
+  DecorationImage? _getDecorationImage(File? imagePicker) {
+    if (imagePicker != null) {
+      return DecorationImage(
+        image: FileImage(imagePicker),
+        fit: BoxFit.cover,
+      );
+    } else if (widget.imageNetwork != null || widget.listImageNetwork != null) {
+      return DecorationImage(
+        image: Image.network(widget.imageNetwork != null
+                ? widget.imageNetwork!
+                : widget.listImageNetwork!.last)
+            .image,
+        fit: BoxFit.cover,
+      );
+    } else if (widget.image != null) {
+      return DecorationImage(
+        image: Image.asset(widget.image!).image,
+        fit: BoxFit.cover,
+      );
+    }
+    return null;
+  }
+
+  Widget _buildAvatarChild(File? imagePicker) {
+    if (imagePicker == null &&
+        widget.imageNetwork == null &&
+        widget.image == null &&
+        widget.listImageNetwork == null &&
+        widget.text != null) {
+      return widget.child ??
+          Text(
+            AvatarCircleExtensions.initials(widget.text!),
+            style: widget.style,
+          );
+    }
+    return const Text('');
   }
 }

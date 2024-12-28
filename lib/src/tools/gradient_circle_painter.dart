@@ -14,6 +14,7 @@ class GradientCirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width - withBorder) / 2;
     const startAngle = -pi / 2;
     const sweepAngle = 2 * pi;
 
@@ -21,12 +22,13 @@ class GradientCirclePainter extends CustomPainter {
         gradientColors?.colors ?? [Colors.blue, Colors.green];
 
     final gradient = SweepGradient(
+      transform: GradientRotation(radius),
       startAngle: startAngle,
       endAngle: startAngle + sweepAngle,
       colors: colors,
     );
 
-    final rect = Rect.fromCircle(center: center, radius: size.width / 2);
+    final rect = Rect.fromCircle(center: center, radius: radius);
 
     final paint = Paint()
       ..shader = gradient.createShader(rect)
@@ -37,7 +39,5 @@ class GradientCirclePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
