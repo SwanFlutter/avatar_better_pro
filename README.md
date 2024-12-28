@@ -16,6 +16,10 @@ This is a complete avatar package that you can use for your profile and avatar
 
 ![avatar6](https://github.com/user-attachments/assets/8e176a21-6ec7-47f1-bdd6-ab417851d7cd)
 ![avatar5](https://github.com/user-attachments/assets/d226ecba-fd44-4d3f-8f7b-86a8b8bcc94a)
+![avatar8](https://github.com/user-attachments/assets/b3f4b33d-1a70-4031-b019-725ff03f31c6)
+![avatar9](https://github.com/user-attachments/assets/860bf717-3b65-4f3c-8e88-2ddd5060b420)
+
+
 
 
 ![Capture3](https://github.com/SwanFlutter/avatar_better_pro/assets/151648897/5b229562-fb6d-40fc-a3aa-0655284c3968)
