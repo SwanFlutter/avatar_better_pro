@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-// انواع استایل نشانگر وضعیت
 enum StatusIndicatorStyle {
-  dot, // دایره ساده
-  ring, // حلقه
-  semicircle, // نیم دایره
+  dot,
+  ring,
+  semicircle,
 }
 
 enum StatusIndicatorAlignment {

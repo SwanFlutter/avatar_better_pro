@@ -1,7 +1,7 @@
 name: avatar_better_pro
 description: "This is a complete avatar package that you can use for your profile and avatar."
-version: 0.0.7
-homepage: https://github.com/SwanFlutter/avatar_better_pro.git
+version: 0.0.8
+homepage: "https://github.com/SwanFlutter/avatar_better_pro.git"
 
 platforms:
   android:

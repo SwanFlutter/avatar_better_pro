@@ -299,8 +299,7 @@ class _AvatarState extends State<Avatar> {
               ? _buildBorderedAvatar(imagePicker)
               : _buildSimpleAvatar(imagePicker),
         ),
-        if (widget.showStatusSettings &&
-            widget.statusSettings != null) // بررسی پراپرتی جدید
+        if (widget.showStatusSettings && widget.statusSettings != null)
           _buildEdgeStatusIndicator(avatarSize),
       ],
     );
@@ -312,7 +311,6 @@ class _AvatarState extends State<Avatar> {
     final avatarRadius = avatarSize / 2;
     final indicatorRadius = settings.size / 2;
 
-    // زاویه موقعیت‌یابی دایره وضعیت
     double angle;
     switch (settings.alignment) {
       case StatusIndicatorAlignment.topRight:
@@ -329,7 +327,6 @@ class _AvatarState extends State<Avatar> {
         break;
     }
 
-    // محاسبه مختصات با تنظیم برای کمی داخل‌تر رفتن دایره وضعیت
     final x =
         avatarRadius + (avatarRadius + indicatorRadius * 0.30) * cos(angle);
     final y =
@@ -462,11 +459,13 @@ class _AvatarState extends State<Avatar> {
         widget.image == null &&
         widget.listImageNetwork == null &&
         widget.text != null) {
-      return widget.child ??
-          Text(
-            AvatarCircleExtensions.initials(widget.text!),
-            style: widget.style,
-          );
+      return Center(
+        child: widget.child ??
+            Text(
+              AvatarCircleExtensions.initials(widget.text!),
+              style: widget.style,
+            ),
+      );
     }
     return const Text('');
   }

@@ -17,3 +17,6 @@
 * Add new two Feature .
 
 
+## 0.0.8
+
+* Fix bug avatar .

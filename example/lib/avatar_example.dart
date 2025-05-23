@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:avatar_better_pro/avatar_better_pro.dart';
+import 'package:avatar_example/avatar_test.dart';
 import 'package:flutter/material.dart';
 
 class AvatarExample extends StatefulWidget {
@@ -153,6 +154,16 @@ class _AvatarExampleState extends State<AvatarExample> {
             },
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AvatarTest(),
+              ));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
