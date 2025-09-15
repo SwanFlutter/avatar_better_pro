@@ -1,20 +1,12 @@
 import 'dart:io';
 
 import 'package:avatar_better_pro/avatar_better_pro.dart';
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 
 import 'avatar_test.dart';
 
 class AvatarExample extends StatefulWidget {
   const AvatarExample({super.key});
-=======
-import 'package:avatar_example/avatar_test.dart';
-import 'package:flutter/material.dart';
-
-class AvatarExample extends StatefulWidget {
-  const AvatarExample({Key? key}) : super(key: key);
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 
   @override
   State<AvatarExample> createState() => _AvatarExampleState();
@@ -75,7 +67,6 @@ class _AvatarExampleState extends State<AvatarExample> {
     'W',
     'X',
     'Y',
-<<<<<<< HEAD
     'Z',
   ];
 
@@ -83,13 +74,6 @@ class _AvatarExampleState extends State<AvatarExample> {
     52,
     (index) => "${alphabet[index]} avatar ${index + 1} ",
   );
-=======
-    'Z'
-  ];
-
-  List<String> avatar =
-      List.generate(52, (index) => "${alphabet[index]} avatar ${index + 1} ");
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -121,7 +105,6 @@ class _AvatarExampleState extends State<AvatarExample> {
                         mixColorForGradient: false,
                         isBorderAvatar: true,
                         widthBorder: 5,
-<<<<<<< HEAD
                         gradientWidthBorder: const LinearGradient(
                           colors: [
                             Colors.amber,
@@ -129,13 +112,6 @@ class _AvatarExampleState extends State<AvatarExample> {
                             Colors.deepOrangeAccent,
                           ],
                         ),
-=======
-                        gradientWidthBorder: const LinearGradient(colors: [
-                          Colors.amber,
-                          Colors.orangeAccent,
-                          Colors.deepOrangeAccent
-                        ]),
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                         showStatusSettings: true,
                         statusSettings: const StatusIndicatorSettings(
                           borderColor: Colors.pink,
@@ -187,16 +163,9 @@ class _AvatarExampleState extends State<AvatarExample> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-<<<<<<< HEAD
             context,
             MaterialPageRoute(builder: (context) => const AvatarTest()),
           );
-=======
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AvatarTest(),
-              ));
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
         },
         child: const Icon(Icons.add),
       ),
