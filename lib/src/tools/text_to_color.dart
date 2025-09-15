@@ -23,7 +23,11 @@ class TextToColor {
     return hash;
   }
 
+<<<<<<< HEAD
   static int toIntColor(String? str) {
+=======
+  static int toIntColor(str) {
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     try {
       var hash = _getInt(str);
       var r = (hash & 0xFF0000) >> 8;
@@ -47,7 +51,11 @@ class TextToColor {
     }
   }
 
+<<<<<<< HEAD
   static Color toColor(String? str) {
+=======
+  static Color toColor(str) {
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     return Color(toIntColor(str));
   }
 }

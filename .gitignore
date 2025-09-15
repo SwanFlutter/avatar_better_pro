@@ -26,6 +26,12 @@ migrate_working_dir/
 /pubspec.lock
 **/doc/api/
 .dart_tool/
+<<<<<<< HEAD
 .flutter-plugins-dependencies
 /build/
 /coverage/
+=======
+build/
+.flutter-plugins-dependencies
+.qodo
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c

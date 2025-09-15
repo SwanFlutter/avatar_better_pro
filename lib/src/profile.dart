@@ -14,7 +14,11 @@ import 'package:image_picker/image_picker.dart';
 
 import 'tools/text_to_color.dart';
 
+<<<<<<< HEAD
 typedef OnPickerChange = void Function(File file, Uint8List bytes);
+=======
+typedef OnPickerChange = void Function(File file);
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 typedef OnPickerChangeWeb = void Function(Uint8List file);
 
 extension ProfileExtensions on Profile {
@@ -121,9 +125,14 @@ class Profile extends StatefulWidget {
     this.isBorderAvatar = false,
     this.backgroundColor = Colors.green,
     this.bottomSheetStyles,
+<<<<<<< HEAD
     this.gradientWidthBorder = const LinearGradient(
       colors: [Colors.blue, Colors.deepPurple],
     ),
+=======
+    this.gradientWidthBorder =
+        const LinearGradient(colors: [Colors.blue, Colors.deepPurple]),
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     this.iconColor = Colors.black,
     this.widthBorder = 5.0,
     this.backgroundColorCamera = Colors.white,
@@ -132,21 +141,31 @@ class Profile extends StatefulWidget {
     this.mixColorForGradient = false,
     this.child,
     this.style = const TextStyle(
+<<<<<<< HEAD
       fontSize: 25,
       color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
+=======
+        fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     bool randomColor = true,
     bool randomGradient = false,
   }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text);
     } else if (randomGradient) {
+<<<<<<< HEAD
       gradientBackgroundColor = GradientRandomTools.getGradient(
         text.toString(),
         material: useMaterialColorForGradient,
         dynamicMix: mixColorForGradient,
       );
+=======
+      gradientBackgroundColor = GradientRandomTools.getGradient(text.toString(),
+          material: useMaterialColorForGradient,
+          dynamicMix: mixColorForGradient);
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     } else {
       backgroundColor = backgroundColor;
     }
@@ -167,7 +186,14 @@ class _ProfileState extends State<Profile> {
       child: Stack(
         children: [
           if (kIsWeb)
+<<<<<<< HEAD
             IsWeb(widget: widget, imageBytesWeb: imageBytesWeb)
+=======
+            IsWeb(
+              widget: widget,
+              imageBytesWeb: imageBytesWeb,
+            )
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
           else
             widget.isBorderAvatar
                 ? IsBorderAvatar(widget: widget, image: image)
@@ -197,6 +223,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void customBottomPickerImage(BuildContext context) {
+<<<<<<< HEAD
     // Calculate dynamic height based on platform
     bool showCameraButton = Platform.isAndroid || Platform.isIOS;
     double dynamicHeight = showCameraButton ? 180 : 120;
@@ -237,6 +264,25 @@ class _ProfileState extends State<Profile> {
                     ImageSource.gallery,
                     false,
                   );
+=======
+    showModalBottomSheet(
+      backgroundColor: widget.bottomSheetStyles?.backgroundColor,
+      elevation: widget.bottomSheetStyles?.elevation,
+      shape: widget.bottomSheetStyles?.shape,
+      context: context,
+      builder: (context) {
+        Size size = MediaQuery.of(context).size;
+        return SizedBox(
+          width: size.width,
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () async {
+                  final List<XFile> files =
+                      await imageModel.pickImage(ImageSource.gallery, false);
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 
                   if (files.isNotEmpty) {
                     Uint8List imageBytes = await files.first.readAsBytes();
@@ -249,7 +295,11 @@ class _ProfileState extends State<Profile> {
                     } else {
                       setState(() {
                         image = File(files.first.path);
+<<<<<<< HEAD
                         widget.onPickerChange?.call(image!, imageBytes);
+=======
+                        widget.onPickerChange?.call(image!);
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                         Navigator.pop(context);
                       });
                     }
@@ -259,6 +309,7 @@ class _ProfileState extends State<Profile> {
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(12.0),
+<<<<<<< HEAD
                   elevation: 2,
                   color:
                       widget.bottomSheetStyles?.galleryButton?.color ??
@@ -266,11 +317,19 @@ class _ProfileState extends State<Profile> {
                   child: Container(
                     alignment: Alignment.center,
                     width: double.infinity,
+=======
+                  elevation: 5,
+                  color: widget.bottomSheetStyles?.galleryButton?.color,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: size.width * 0.90,
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                     height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (widget.bottomSheetStyles?.galleryButton?.icon !=
+<<<<<<< HEAD
                             null) ...[
                           widget.bottomSheetStyles!.galleryButton!.icon!,
                           const SizedBox(width: 8),
@@ -285,12 +344,21 @@ class _ProfileState extends State<Profile> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ),
+=======
+                            null)
+                          widget.bottomSheetStyles!.galleryButton!.icon!,
+                        Text(
+                          widget.bottomSheetStyles?.galleryButton?.text ??
+                              "Browse Gallery",
+                          style: widget.bottomSheetStyles?.galleryButton?.style,
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
+<<<<<<< HEAD
 
               // Show OR text and camera button only on mobile platforms
               if (showCameraButton) ...[
@@ -339,32 +407,86 @@ class _ProfileState extends State<Profile> {
                     child: Container(
                       alignment: Alignment.center,
                       width: double.infinity,
+=======
+              const SizedBox(height: 5),
+              Platform.isMacOS || Platform.isWindows
+                  ? const Text("")
+                  : Center(
+                      child: Text(
+                        widget.bottomSheetStyles?.middleText ?? "OR",
+                        style: widget.bottomSheetStyles?.middleTextStyle,
+                      ),
+                    ),
+              const SizedBox(height: 5),
+              // Show camera button only on Android and iOS
+              if (Platform.isAndroid || Platform.isIOS)
+                InkWell(
+                  onTap: () async {
+                    final List<XFile> files =
+                        await imageModel.pickImage(ImageSource.camera, false);
+                    Uint8List imageBytes = await files.first.readAsBytes();
+                    if (kIsWeb) {
+                      setState(() {
+                        imageBytesWeb = imageBytes;
+                        widget.onPickerChangeWeb?.call(imageBytesWeb!);
+                      });
+                    } else {
+                      setState(() {
+                        if (files.isNotEmpty) {
+                          image = File(files.first.path);
+                          widget.onPickerChange?.call(image!);
+
+                          Navigator.pop(context);
+                        }
+                      });
+                    }
+                  },
+                  child: Material(
+                    color: widget.bottomSheetStyles?.cameraButton?.color,
+                    borderRadius: BorderRadius.circular(12.0),
+                    elevation: 5,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: size.width * 0.90,
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (widget.bottomSheetStyles?.cameraButton?.icon !=
+<<<<<<< HEAD
                               null) ...[
                             widget.bottomSheetStyles!.cameraButton!.icon!,
                             const SizedBox(width: 8),
                           ],
+=======
+                              null)
+                            widget.bottomSheetStyles!.cameraButton!.icon!,
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                           Text(
                             widget.bottomSheetStyles?.cameraButton?.text ??
                                 "Use Camera",
                             style:
+<<<<<<< HEAD
                                 widget.bottomSheetStyles?.cameraButton?.style ??
                                 TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
+=======
+                                widget.bottomSheetStyles?.cameraButton?.style,
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
+<<<<<<< HEAD
               ],
+=======
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
             ],
           ),
         );

@@ -31,7 +31,11 @@ This is a complete avatar package that you can use for your profile and avatar
 
 ```yaml
 dependencies:
+<<<<<<< HEAD
   avatar_better_pro: ^0.0.9
+=======
+  avatar_better_pro: ^0.0.8
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 ```
 
 ## How to use
@@ -139,6 +143,13 @@ mixColorForGradient: false,
                           
 ```
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 ## Additional information
 
 If you have any issues, questions, or suggestions related to this package, please feel free to contact us at [swan.dev1993@gmail.com](mailto:swan.dev1993@gmail.com). We welcome your feedback and will do our best to address any problems or provide assistance.

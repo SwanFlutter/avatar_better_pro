@@ -1,4 +1,5 @@
 import 'package:avatar_better_pro/avatar_better_pro.dart';
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -21,5 +22,13 @@ void main() {
     expect(AvatarCircleExtensions.initials('Alice'), 'A');
     expect(AvatarCircleExtensions.initials('Bob Smith Johnson'), 'BS');
     expect(AvatarCircleExtensions.initials(''), '');
+=======
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  test('adds one to input values', () {
+    final testAvatar = Avatar(text: "Hello World!");
+    testAvatar.toString();
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
   });
 }

@@ -57,7 +57,10 @@ class NoneBorderAvatar extends StatelessWidget {
             ? Text(
                 ProfileExtensions.initials(widget.text!),
                 style: widget.style,
+<<<<<<< HEAD
                 textAlign: TextAlign.center,
+=======
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
               )
             : const Text(''),
       ),

@@ -4,7 +4,10 @@ library;
 
 import 'dart:io';
 import 'dart:math' show pi, cos, sin;
+<<<<<<< HEAD
 import 'dart:typed_data';
+=======
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 
 import 'package:avatar_better_pro/src/tools/gradient_circle_painter.dart';
 import 'package:avatar_better_pro/src/tools/status_indicator_settings.dart';
@@ -19,7 +22,11 @@ export 'package:avatar_better_pro/src/tools/bottom_sheet_styles.dart';
 export 'package:avatar_better_pro/src/tools/gallery_buttom.dart';
 export 'package:avatar_better_pro/src/tools/status_indicator_settings.dart';
 
+<<<<<<< HEAD
 typedef OnPickerChange = void Function(File file, Uint8List bytes);
+=======
+typedef OnPickerChange = void Function(File file);
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 
 extension AvatarCircleExtensions on Avatar {
   static String initials(String text) {

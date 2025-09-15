@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # example
+=======
+# avatar_example
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 
 A new Flutter project.
 

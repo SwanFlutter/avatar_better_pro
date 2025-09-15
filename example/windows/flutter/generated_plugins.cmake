@@ -4,6 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
+<<<<<<< HEAD
+=======
+  permission_handler_windows
+>>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
