@@ -34,33 +34,28 @@ class NoneBorderAvatar extends StatelessWidget {
           gradient: widget.gradientBackgroundColor,
           shape: BoxShape.circle,
           image: image != null
+              ? DecorationImage(image: FileImage(image!), fit: BoxFit.cover)
+              : widget.imageNetwork != null
               ? DecorationImage(
-                  image: FileImage(image!),
+                  image: Image.network(widget.imageNetwork!).image,
                   fit: BoxFit.cover,
                 )
-              : widget.imageNetwork != null
-                  ? DecorationImage(
-                      image: Image.network(widget.imageNetwork!).image,
-                      fit: BoxFit.cover,
-                    )
-                  : widget.image != null
-                      ? DecorationImage(
-                          image: Image.asset(widget.image!).image,
-                          fit: BoxFit.cover,
-                        )
-                      : null,
+              : widget.image != null
+              ? DecorationImage(
+                  image: Image.asset(widget.image!).image,
+                  fit: BoxFit.cover,
+                )
+              : null,
         ),
-        child: (image == null &&
+        child:
+            (image == null &&
                 widget.imageNetwork == null &&
                 widget.image == null &&
                 widget.text != null)
             ? Text(
                 ProfileExtensions.initials(widget.text!),
                 style: widget.style,
-<<<<<<< HEAD
                 textAlign: TextAlign.center,
-=======
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
               )
             : const Text(''),
       ),
