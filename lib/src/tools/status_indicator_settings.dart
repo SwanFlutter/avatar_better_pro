@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum StatusIndicatorStyle {
-  dot,
-  ring,
-  semicircle,
-}
+enum StatusIndicatorStyle { dot, ring, semicircle }
 
-enum StatusIndicatorAlignment {
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-}
+enum StatusIndicatorAlignment { topLeft, topRight, bottomLeft, bottomRight }
 
 class StatusIndicatorSettings {
   final bool isOnline;
@@ -93,15 +84,11 @@ class StatusIndicatorSettings {
             color: shadowColor.withValues(alpha: 0.2),
             blurRadius: shadowBlurRadius,
             offset: shadowOffset,
-          )
+          ),
         ]
       : null;
 
   // گرفتن بوردر در صورت فعال بودن
-  Border? get border => showBorder
-      ? Border.all(
-          color: borderColor,
-          width: borderWidth,
-        )
-      : null;
+  Border? get border =>
+      showBorder ? Border.all(color: borderColor, width: borderWidth) : null;
 }
