@@ -104,7 +104,8 @@ mixColorForGradient: false,
 ),,
 ```
 
-![avatar7](https://github.com/user-attachments/assets/1dd789e9-979b-4f06-ac3c-a469507d9919)
+![avatar7](https://github.com/user-attachments/assets/1dd789e9-979b-4f06-ac3c-a469507d9919) <img width="414" height="784" alt="avatar_better" src="https://github.com/user-attachments/assets/ddab13bd-c602-489d-ac7e-4823c94a0e13" />
+
 
 
 ```dart
