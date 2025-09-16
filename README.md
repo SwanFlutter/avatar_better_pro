@@ -7,12 +7,12 @@ This is a complete avatar package that you can use for your profile and avatar
 **Features:**  
 ✔️ Initial Text: Displaying initial text for avatars or placeholders.  
 ✔️ Random Colors: Generating random colors for various elements.  
-✔️ Random Linear Gradient: Generating random linear gradient colors.
-✔️ Avatar Profile: Creating avatars for profiles or user representation.
-✔️ Border Avatar: create a border around the avatar .
-✔️ gradient Width Border: Create a gradient color for the borders .
-✔️ Use ImageAssets .
-✔️ Use ImageNetwork .
+✔️ Random Linear Gradient: Generating random linear gradient colors.  
+✔️ Avatar Profile: Creating avatars for profiles or user representation.  
+✔️ Border Avatar: create a border around the avatar.  
+✔️ gradient Width Border: Create a gradient color for the borders.  
+✔️ Use ImageAssets.  
+✔️ Use ImageNetwork.
 
 ![avatar6](https://github.com/user-attachments/assets/8e176a21-6ec7-47f1-bdd6-ab417851d7cd)
 ![avatar5](https://github.com/user-attachments/assets/d226ecba-fd44-4d3f-8f7b-86a8b8bcc94a)
@@ -109,13 +109,13 @@ mixColorForGradient: false,
 
 ```dart
  Avatar.profile(
-              onPickerChange: (file) {
+               onPickerChange: (file, bytes) {
                 setState(() {
                   image = file;
-                  //  print("image: ${file.path}");
+                  imageBytes = bytes;
                 });
               },
-              onPickerChangeWeb: (file) {
+              onPickerChangeWeb: (bytes) {
                 setState(() {
                   imageByte = file;
                 });
