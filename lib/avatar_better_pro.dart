@@ -289,8 +289,8 @@ class Avatar extends StatefulWidget {
       bottomSheetStyles: bottomSheetStyles,
       useMaterialColorForGradient: useMaterialColorForGradient,
       mixColorForGradient: mixColorForGradient,
-      child: child,
       customBottomSheetBuilder: customBottomSheetBuilder,
+      child: child,
     );
   }
 

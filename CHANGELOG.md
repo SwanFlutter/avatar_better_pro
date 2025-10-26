@@ -38,3 +38,9 @@
 * Improved cross-platform image handling
 * update ui bottomSheet
 * update Flutter SDK
+
+## 0.1.0
+
+* Add new Feature .
+* Add new Property bottomSheetStyles .
+* Fix ui bottom sheet .
