@@ -41,6 +41,101 @@ import 'package:avatar_better_pro/avatar_better_pro.dart';
 
 ```
 
+## Usage
+
+- Add imports:
+
+```dart
+import 'package:avatar_better_pro/avatar_better_pro.dart';
+import 'package:flutter/material.dart';
+```
+
+- Basic profile avatar:
+
+```dart
+Avatar.profile(
+  radius: 48,
+  text: 'User',
+  onPickerChange: (file, bytes) {
+    // Handle selected file (Android/iOS)
+  },
+  onPickerChangeWeb: (bytes) {
+    // Handle bytes on Web
+  },
+);
+```
+
+- Fully custom BottomSheet using `customBottomSheetBuilder` (no gallery/camera logic needed):
+
+```dart
+Avatar.profile(
+  radius: 48,
+  text: 'User',
+  customBottomSheetBuilder: (context, pickFromGallery, pickFromCamera) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Choose Image', style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: pickFromGallery,
+                  icon: const Icon(Icons.image_outlined),
+                  label: const Text('Gallery'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: pickFromCamera,
+                  icon: const Icon(Icons.camera_alt_outlined),
+                  label: const Text('Camera'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+);
+```
+
+- Prefer the built-in BottomSheet UI and customize its look with `bottomSheetStyles`:
+
+```dart
+Avatar.profile(
+  radius: 48,
+  text: 'User',
+  bottomSheetStyles: BottomSheetStyles(
+    galleryButton: GalleryBottom(
+      text: 'Gallery',
+      icon: const Icon(Icons.image_outlined),
+    ),
+    cameraButton: CameraButton(
+      text: 'Camera',
+      icon: const Icon(Icons.camera_alt_outlined),
+    ),
+    backgroundColor: Colors.white,
+    elevation: 2,
+    middleText: 'OR',
+    middleTextStyle: const TextStyle(fontSize: 12),
+  ),
+);
+```
+
+Notes:
+- No need to implement image picking logic; `pickFromGallery` and `pickFromCamera` are provided.
+- RTL works; wrap your widget with `Directionality(textDirection: TextDirection.rtl, child: ...)` if needed.
+- Web is supported; use `onPickerChangeWeb` to handle bytes.
+
 ## How to install
 
 ### Android

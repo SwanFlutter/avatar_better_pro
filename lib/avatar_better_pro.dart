@@ -251,6 +251,9 @@ class Avatar extends StatefulWidget {
 
     /// [child] : child widget
     final Widget? child,
+
+    /// [customBottomSheetBuilder]: Custom builder for bottom sheet UI (gallery/camera callbacks provided)
+    final CustomBottomSheetBuilder? customBottomSheetBuilder,
   }) {
     if (randomColor) {
       backgroundColor = TextToColor.toColor(text!);
@@ -287,6 +290,7 @@ class Avatar extends StatefulWidget {
       useMaterialColorForGradient: useMaterialColorForGradient,
       mixColorForGradient: mixColorForGradient,
       child: child,
+      customBottomSheetBuilder: customBottomSheetBuilder,
     );
   }
 

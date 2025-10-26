@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
     "name": "example",
     "short_name": "example",
-=======
-    "name": "avatar_example",
-    "short_name": "avatar_example",
->>>>>>> 1981ec810f851a409abb8d731f812a56be00ad9c
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

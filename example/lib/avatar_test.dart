@@ -16,27 +16,29 @@ class _AvatarTestState extends State<AvatarTest> {
   Uint8List? imageBytes;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('AvatarTest')),
-      body: Column(
-        spacing: 25,
-        children: [
-          Center(child: Avatar(text: "GGHHjdjwe")),
-          Center(
-            child: Avatar.profile(
-              text: "GGHHjdjwe",
-              onPickerChange: (file, bytes) {
-                setState(() {
-                  image = file;
-                  imageBytes = bytes;
-                });
-              },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: const Text('AvatarTest')),
+        body: Column(
+          spacing: 25,
+          children: [
+            Center(child: Avatar(text: "GGHHjdjwe")),
+            Center(
+              child: Avatar.profile(
+                text: "GGHHjdjwe",
+                onPickerChange: (file, bytes) {
+                  setState(() {
+                    image = file;
+                    imageBytes = bytes;
+                  });
+                },
+              ),
             ),
-          ),
-          if (image != null) Image.file(image!, height: 150, width: 150),
-          if (imageBytes != null)
-            Image.memory(imageBytes!, height: 150, width: 150),
-        ],
+            if (image != null) Image.file(image!, height: 150, width: 150),
+            if (imageBytes != null)
+              Image.memory(imageBytes!, height: 150, width: 150),
+          ],
+        ),
       ),
     );
   }

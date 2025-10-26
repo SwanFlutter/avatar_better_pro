@@ -16,6 +16,12 @@ import 'tools/text_to_color.dart';
 
 typedef OnPickerChange = void Function(File file, Uint8List bytes);
 typedef OnPickerChangeWeb = void Function(Uint8List file);
+typedef CustomBottomSheetBuilder =
+    Widget Function(
+      BuildContext context,
+      VoidCallback pickFromGallery,
+      VoidCallback pickFromCamera,
+    );
 
 extension ProfileExtensions on Profile {
   static String initials(String text) {
@@ -107,6 +113,10 @@ class Profile extends StatefulWidget {
 
   final Widget? child;
 
+  /// [customBottomSheetBuilder]: Custom builder for creating your own bottom sheet UI.
+  /// Provides callbacks for gallery and camera actions.
+  final CustomBottomSheetBuilder? customBottomSheetBuilder;
+
   Profile({
     super.key,
     required this.radius,
@@ -131,6 +141,7 @@ class Profile extends StatefulWidget {
     this.useMaterialColorForGradient = true,
     this.mixColorForGradient = false,
     this.child,
+    this.customBottomSheetBuilder,
     this.style = const TextStyle(
       fontSize: 25,
       color: Colors.white,
@@ -197,9 +208,36 @@ class _ProfileState extends State<Profile> {
   }
 
   void customBottomPickerImage(BuildContext context) {
+    // First check if user provided custom UI builder
+    if (widget.customBottomSheetBuilder != null) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: widget.bottomSheetStyles?.backgroundColor,
+        elevation: widget.bottomSheetStyles?.elevation,
+        shape:
+            widget.bottomSheetStyles?.shape ??
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+        builder: (ctx) {
+          return widget.customBottomSheetBuilder!(
+            ctx,
+            () {
+              _pickFromGallery();
+            },
+            () {
+              _pickFromCamera();
+            },
+          );
+        },
+      );
+      return;
+    }
+
     // Calculate dynamic height based on platform
     bool showCameraButton = Platform.isAndroid || Platform.isIOS;
-    double dynamicHeight = showCameraButton ? 180 : 120;
+    double dynamicHeight = showCameraButton ? 240 : 160;
 
     showModalBottomSheet(
       backgroundColor: widget.bottomSheetStyles?.backgroundColor,
@@ -216,47 +254,25 @@ class _ProfileState extends State<Profile> {
           width: size.width,
           height: dynamicHeight,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: ListView(
+            shrinkWrap: true,
             children: [
               // Handle bar for better UX
-              Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.006,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
               ),
 
               // Gallery button
               InkWell(
-                onTap: () async {
-                  final List<XFile> files = await imageModel.pickImage(
-                    ImageSource.gallery,
-                    false,
-                  );
-
-                  if (files.isNotEmpty) {
-                    Uint8List imageBytes = await files.first.readAsBytes();
-
-                    if (kIsWeb) {
-                      setState(() {
-                        imageBytesWeb = imageBytes;
-                        widget.onPickerChangeWeb?.call(imageBytesWeb!);
-                      });
-                    } else {
-                      setState(() {
-                        image = File(files.first.path);
-                        widget.onPickerChange?.call(image!, imageBytes);
-                        Navigator.pop(context);
-                      });
-                    }
-                  } else {
-                    debugPrint("No file selected.");
-                  }
-                },
+                onTap: _pickFromGallery,
                 child: Material(
                   borderRadius: BorderRadius.circular(12.0),
                   elevation: 2,
@@ -295,41 +311,23 @@ class _ProfileState extends State<Profile> {
               // Show OR text and camera button only on mobile platforms
               if (showCameraButton) ...[
                 const SizedBox(height: 16),
-                Text(
-                  widget.bottomSheetStyles?.middleText ?? "OR",
-                  style:
-                      widget.bottomSheetStyles?.middleTextStyle ??
-                      TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
+                Center(
+                  child: Text(
+                    widget.bottomSheetStyles?.middleText ?? "OR",
+                    style:
+                        widget.bottomSheetStyles?.middleTextStyle ??
+                        TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
                 ),
                 const SizedBox(height: 16),
 
                 // Camera button
                 InkWell(
-                  onTap: () async {
-                    final List<XFile> files = await imageModel.pickImage(
-                      ImageSource.camera,
-                      false,
-                    );
-                    if (files.isNotEmpty) {
-                      Uint8List imageBytes = await files.first.readAsBytes();
-                      if (kIsWeb) {
-                        setState(() {
-                          imageBytesWeb = imageBytes;
-                          widget.onPickerChangeWeb?.call(imageBytesWeb!);
-                        });
-                      } else {
-                        setState(() {
-                          image = File(files.first.path);
-                          widget.onPickerChange?.call(image!, imageBytes);
-                          Navigator.pop(context);
-                        });
-                      }
-                    }
-                  },
+                  onTap: _pickFromCamera,
                   child: Material(
                     color:
                         widget.bottomSheetStyles?.cameraButton?.color ??
@@ -370,5 +368,53 @@ class _ProfileState extends State<Profile> {
         );
       },
     );
+  }
+
+  Future<void> _pickFromGallery() async {
+    final List<XFile> files = await imageModel.pickImage(
+      ImageSource.gallery,
+      false,
+    );
+
+    if (files.isNotEmpty) {
+      Uint8List imageBytes = await files.first.readAsBytes();
+
+      if (kIsWeb) {
+        setState(() {
+          imageBytesWeb = imageBytes;
+          widget.onPickerChangeWeb?.call(imageBytesWeb!);
+        });
+      } else {
+        setState(() {
+          image = File(files.first.path);
+          widget.onPickerChange?.call(image!, imageBytes);
+          Navigator.pop(context);
+        });
+      }
+    } else {
+      debugPrint("No file selected.");
+    }
+  }
+
+  Future<void> _pickFromCamera() async {
+    final List<XFile> files = await imageModel.pickImage(
+      ImageSource.camera,
+      false,
+    );
+    if (files.isNotEmpty) {
+      Uint8List imageBytes = await files.first.readAsBytes();
+      if (kIsWeb) {
+        setState(() {
+          imageBytesWeb = imageBytes;
+          widget.onPickerChangeWeb?.call(imageBytesWeb!);
+        });
+      } else {
+        setState(() {
+          image = File(files.first.path);
+          widget.onPickerChange?.call(image!, imageBytes);
+          Navigator.pop(context);
+        });
+      }
+    }
   }
 }
