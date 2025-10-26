@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:avatar_better_pro/src/tools/gradient_circle_painter.dart';
 import 'package:flutter/material.dart';
 
 import '../profile.dart';
@@ -18,11 +17,12 @@ class IsBorderAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: GradientCirclePainter(
-        gradientColors: widget.gradientWidthBorder,
-        withBorder: widget.widthBorder,
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: widget.gradientWidthBorder,
       ),
+      padding: EdgeInsets.all(widget.widthBorder),
       child: Material(
         type: MaterialType.circle,
         elevation: widget.elevation,
@@ -31,8 +31,8 @@ class IsBorderAvatar extends StatelessWidget {
         borderRadius: null,
         child: Container(
           alignment: Alignment.center,
-          height: widget.radius != null ? widget.radius! * 2.2 : 35,
-          width: widget.radius != null ? widget.radius! * 2.2 : 35,
+          height: widget.radius != null ? widget.radius! * 2 : 35,
+          width: widget.radius != null ? widget.radius! * 2 : 35,
           decoration: BoxDecoration(
             color: widget.backgroundColor,
             gradient: widget.gradientBackgroundColor,

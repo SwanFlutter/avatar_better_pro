@@ -44,3 +44,10 @@
 * Add new Feature .
 * Add new Property bottomSheetStyles .
 * Fix ui bottom sheet .
+
+
+## 0.1.1 
+
+* Fix bug avatar profile border .
+
+

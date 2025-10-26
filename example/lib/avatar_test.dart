@@ -21,11 +21,19 @@ class _AvatarTestState extends State<AvatarTest> {
         appBar: AppBar(title: const Text('AvatarTest')),
         body: Column(
           spacing: 25,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(child: Avatar(text: "GGHHjdjwe")),
             Center(
               child: Avatar.profile(
+                radius: 40,
                 text: "GGHHjdjwe",
+                isBorderAvatar: true,
+                widthBorder: 4,
+                gradientWidthBorder: LinearGradient(
+                  colors: [Colors.blue, Colors.blueAccent],
+                ),
                 onPickerChange: (file, bytes) {
                   setState(() {
                     image = file;
